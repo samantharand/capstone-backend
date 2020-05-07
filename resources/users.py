@@ -17,9 +17,8 @@ def register():
 	payload = request.get_json()
 	payload['username'] = payload['username'].lower()
 	payload['email'] = payload['email'].lower()
-	print(payload)
-
-	# see if username is already registered
+	
+	# username check
 	try:
 		models.User.get(models.User.username == payload['username'])
 		
@@ -30,7 +29,7 @@ def register():
 		), 401
 
 	except models.DoesNotExist:
-		# see if email is already registered
+		# email check
 		try:
 			models.User.get(models.User.email == payload['email'])
 
@@ -38,10 +37,10 @@ def register():
 				data = {},
 				message = "Sorry, that email is already registered :(",
 				status = 401
-			), 401
+			), 401	
 
 		except models.DoesNotExist:
-
+			# make account
 			created_user = models.User.create(
 				username=payload['username'],
 				email=payload['email'],
@@ -63,3 +62,60 @@ def register():
 				message = 'User Created',
 				status = 201
 			), 201
+
+@users.route('/login', methods=['POST'])
+def login():
+	payload = request.get_json()
+	payload['username'] = payload['username'].lower()
+	print("Login route, here's payload", payload)
+
+	#username check 
+	try:
+		user = models.User.get(models.User.username == payload['username'])
+		# check password !! remember hash! 
+
+		user_dict = model_to_dict(user)
+		print("USER DICT from line 83 in users", user_dict)
+		good_password = check_password_hash(user_dict['password'], payload['password'])
+
+		if good_password:
+
+			login_user(user)
+
+			user_dict.pop('password')
+			
+			return jsonify(
+				data = user_dict,
+				message = f'Welcome back, {user_dict["username"]}!',
+				status = 201
+			), 201
+
+		else:
+			print('bad password')
+
+			return jsonify(
+				data = {},
+				message = "Wrong username or password",
+				status = 401
+			), 401
+
+	except models.DoesNotExist:
+
+		print('bad username')
+
+		return jsonify(
+			data = {},
+			message = "Wrong username or password",
+			status = 401,
+		), 401
+
+
+
+
+
+
+
+
+
+
+
