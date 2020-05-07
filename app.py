@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import models
 
 DEBUG=True
 PORT=8000
@@ -11,4 +12,5 @@ def test_route():
 	return "check the term, gurl"
 
 if __name__ == '__main__':
+	models.init()
 	app.run(debug=DEBUG, port=PORT)
