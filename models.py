@@ -18,7 +18,7 @@ class User(UserMixin, Model):
 
 class StreetArt(Model):
 	name = CharField()
-	location = FloatField([]) # ????? -- lat and long ?
+	location = FloatField() # indexes????? -- lat and long ?
 	year = IntegerField()
 	artist = CharField()
 	description = TextField()
@@ -35,9 +35,21 @@ class StreetArt(Model):
 	# 2. let people type what ever they want, sunshine is different from sun shine
 			# search and autocomplete
 
+
+
+
+# class Tag(Model):
+# 	name = CharField()
+
+# class PostTag(Model):
+# 	post = ForeignKeyField(StreetArt)
+# 	tag = ForeignKeyField(Tag)
+# 	class Meta:
+# 		primary_key = CompositeKey('streetart', 'tag')
+
 def init():
 	DATABASE.connect()
-	DATABASE.create_tables([User], safe=True)
+	DATABASE.create_tables([User, StreetArt], safe=True)
 	print('Connected to the database!')
 
 	DATABASE.close()
