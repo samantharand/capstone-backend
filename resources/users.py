@@ -196,6 +196,7 @@ def delete_user_account(id):
 			message = 'Account successfully deleted',
 			status = 200
 		), 200
+		
 	else:
 
 		return jsonify(

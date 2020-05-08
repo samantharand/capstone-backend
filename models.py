@@ -3,8 +3,8 @@ import datetime
 
 from flask_login import UserMixin
 
-DATABASE = SqliteDatabase('streetart.sqlite')
-# , pragmas = {"foreign_keys": 1}
+DATABASE = SqliteDatabase('streetart.sqlite', pragmas = {"foreign_keys": 1})
+
 class User(UserMixin, Model):
 	username = CharField(unique=True)
 	email = CharField(unique=True)
@@ -16,7 +16,17 @@ class User(UserMixin, Model):
 	class Meta:
 		database = DATABASE
 
+class StreetArt(Model):
+	name = CharField()
+	location = FloatField([]) # ????? -- lat and long ?
+	year = IntegerField()
+	artist = CharField()
+	description = TextField()
+	poster = ForeignKeyField(User, backref='streetart', on_delete='CASCADE')
+	date_posted = DateTimeField(default=datetime.datetime.now)
 
+	class Meta:
+		database = DATABASE
 # lat and long for location -- check peewee docs
 
 # tags -- a new model w a through table to attach tag to post/artwork  (Many to many -- possibly without additional model)

@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
-from resources.users import users
 from flask_login import LoginManager
+from resources.users import users
+from resources.streetart import streetart
 
 import models
 
@@ -33,7 +34,8 @@ def unauthoried():
 		status = 404
 	), 404
 
-app.register_blueprint(users, url_prefix='/users/')
+app.register_blueprint(users, url_prefix='/users')
+app.register_blueprint(streetart, url_prefix='/streetart')
 
 @app.route('/', methods=['GET'])
 def test_route():
