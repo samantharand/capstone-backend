@@ -34,7 +34,7 @@ def add_streetart():
 		status = 201
 	), 201
 
-@streetart.route('/all', methods=['GET'])
+@streetart.route('/map', methods=['GET'])
 def get_all_streetart():
 	streetart = models.StreetArt.select()
 
@@ -47,5 +47,65 @@ def get_all_streetart():
 		message = f'Found all street art in database - {len(streetart_dicts)} total.',
 		status = 200
 	), 200
+
+# show page
+@streetart.route('/<id>', methods=['GET'])
+def get_streetart_details(id):
+	streetart = models.StreetArt.get(models.StreetArt.id == id)
+
+	streetart_dict = model_to_dict(streetart)
+	streetart_dict['poster'].pop('password')
+
+	return jsonify (
+		data = streetart_dict,
+		message = f'Displaying artwork: {streetart_dict["name"]}, ID{streetart_dict["id"]}',
+		status = 200
+	), 200
+
+# edit
+@streetart.route('/<id>', methods=['PUT'])
+@login_required
+def edit_streetart_post(id):
+	payload = request.get_json()
+	streetart_to_edit = models.StreetArt.get(models.StreetArt.id == id)
+
+	if current_user.id == streetart_to_edit.poster.id:
+		streetart_to_edit.name = payload['name']
+		streetart_to_edit.location = payload['location']
+		streetart_to_edit.year = payload['year']
+		streetart_to_edit.artist = payload['artist']
+		streetart_to_edit.description = payload['description']
+		
+		streetart_to_edit.save()
+		streetart_to_edit_dict = model_to_dict(streetart_to_edit)
+		streetart_to_edit_dict['poster'].pop('password')
+		return jsonify(
+			data = streetart_to_edit_dict,
+			message = 'Streetart has been edited',
+			status = 201
+		), 201
+
+	else:
+		return "this aint urs gf"
+
+
+
+# delete 
+# @streetart.route('/<id>', methods=['DELETE'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

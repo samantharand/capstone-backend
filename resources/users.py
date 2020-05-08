@@ -24,7 +24,7 @@ def register():
 		
 		return jsonify(
 			data = {},
-			message = "Sorry, that username is already registered :(",
+			message = "Sorry, that username is already registered",
 			status = 401
 		), 401
 
@@ -35,7 +35,7 @@ def register():
 
 			return jsonify(
 				data = {},
-				message = "Sorry, that email is already registered :(",
+				message = "Sorry, that email is already registered",
 				status = 401
 			), 401	
 
