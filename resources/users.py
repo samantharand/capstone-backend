@@ -187,9 +187,22 @@ def delete_user_account(id):
 	user_to_delete = models.User.get(models.User.id == id)
 
 	if current_user.id == user_to_delete.id:
-		return "welcome to your delete page"
+
+		delete_query = models.User.delete().where(models.User.id == id)
+		delete_query.execute()
+
+		return jsonify(
+			data = {},
+			message = 'Account successfully deleted',
+			status = 200
+		), 200
 	else:
-		return "this aint ur delete page"
+
+		return jsonify(
+			data = {},
+			message = 'User can only delete their own account',
+			status = 403
+		), 403
 
 
 
