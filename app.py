@@ -33,7 +33,6 @@ def unauthoried():
 		status = 404
 	), 404
 
-
 app.register_blueprint(users, url_prefix='/users/')
 
 @app.route('/', methods=['GET'])

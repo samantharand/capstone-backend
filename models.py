@@ -4,7 +4,7 @@ import datetime
 from flask_login import UserMixin
 
 DATABASE = SqliteDatabase('streetart.sqlite')
-
+# , pragmas = {"foreign_keys": 1}
 class User(UserMixin, Model):
 	username = CharField(unique=True)
 	email = CharField(unique=True)

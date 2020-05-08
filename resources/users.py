@@ -157,12 +157,39 @@ def edit_user_details(id):
 	user_to_edit = models.User.get(models.User.id == id)
 
 	if current_user.id == user_to_edit.id:
-		return "welcome to your edit page"
+		# add username email and password edits (only perform check if email and username are NOT their current username and email)
+		user_to_edit.zip_code = payload['zip_code']
+		user_to_edit.bio = payload['bio']
+
+		user_to_edit.save()
+
+		user_to_edit_dict = model_to_dict(user_to_edit)
+		user_to_edit_dict.pop('password')
+
+		return jsonify(
+			data = user_to_edit_dict,
+			message = 'Edited account',
+			status = 201
+		), 201
+
 	else:
-		return "this aint ur edit page"
+
+		return jsonify(
+			data = {},
+			message = 'User can only edit their own account',
+			status = 403
+		), 403
 
 #destroy
+@users.route('/<id>', methods=['DELETE'])
+@login_required
+def delete_user_account(id):
+	user_to_delete = models.User.get(models.User.id == id)
 
+	if current_user.id == user_to_delete.id:
+		return "welcome to your delete page"
+	else:
+		return "this aint ur delete page"
 
 
 
