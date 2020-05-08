@@ -119,7 +119,6 @@ def logout():
 
 # all users in database
 @users.route('/all', methods=['GET'])
-@login_required
 def get_all_users():
 	users = models.User.select()
 
@@ -152,8 +151,15 @@ def get_user_details(id):
 
 # edit
 @users.route('/<id>', methods=['PUT'])
-def edit_user_details():
+@login_required
+def edit_user_details(id):
 	payload = request.get_json()
+	user_to_edit = models.User.get(models.User.id == id)
+
+	if current_user.id == user_to_edit.id:
+		return "welcome to your edit page"
+	else:
+		return "this aint ur edit page"
 
 #destroy
 
