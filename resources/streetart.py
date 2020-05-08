@@ -99,9 +99,18 @@ def delete_streetart_post(id):
 	streetart_to_delete = models.StreetArt.get(models.StreetArt.id == id)
 
 	if current_user.id == streetart_to_delete.poster.id:
-		return "ya dis is urs"
+		streetart_to_delete.delete_instance()
+
+		return jsonify(
+			data = {},
+			message = "Post successfully deleted."
+		)
 	else:
-		return "no no no not so fast"
+		return jsonify(
+			data = {},
+			message = "User cannot delete posts that are not theirs",
+			status = 403
+		), 403
 
 
 
