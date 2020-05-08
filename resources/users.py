@@ -1,7 +1,7 @@
 import models
 
 from flask import Blueprint, request, jsonify
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user, login_required
 from flask_bcrypt import generate_password_hash, check_password_hash
 from playhouse.shortcuts import model_to_dict
 
@@ -119,6 +119,7 @@ def logout():
 
 # all users in database
 @users.route('/all', methods=['GET'])
+@login_required
 def get_all_users():
 	users = models.User.select()
 
@@ -149,7 +150,12 @@ def get_user_details(id):
 		status = 200
 	), 200
 
+# edit
+@users.route('/<id>', methods=['PUT'])
+def edit_user_details():
+	payload = request.get_json()
 
+#destroy
 
 
 

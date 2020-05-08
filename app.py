@@ -22,6 +22,18 @@ def load_user(user_id):
 	except models.DoesNotExist:
 		return None
 
+# AUTH
+@login_manager.unauthorized_handler
+def unauthoried():
+	return jsonify(
+		data = {
+			'ERROR': 'user not logged in'
+		},
+		message = 'You have to be logged in to do that!',
+		status = 404
+	), 404
+
+
 app.register_blueprint(users, url_prefix='/users/')
 
 @app.route('/', methods=['GET'])
