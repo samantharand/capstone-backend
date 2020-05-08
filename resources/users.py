@@ -117,6 +117,41 @@ def logout():
 		status = 200
 	), 200
 
+# all users in database
+@users.route('/all', methods=['GET'])
+def get_all_users():
+	users = models.User.select()
+
+	user_dicts = [model_to_dict(user) for user in users]
+
+	for user_dict in user_dicts:
+		user_dict.pop('password')
+
+	return jsonify(
+		data = user_dicts,
+		message = f'Showing all users in database - {len(user_dicts)} total',
+		status = 200
+	), 200
+
+# get details of one account
+@users.route('/<id>', methods=['GET'])
+def get_user_details(id):
+	user = models.User.get(models.User.id == id)
+
+	user_dict = model_to_dict(user)
+	user_dict.pop('password')
+
+
+
+	return jsonify(
+		data = user_dict,
+		message = f'Showing account details for user: {user_dict["username"]}, ID#{user_dict["id"]}',
+		status = 200
+	), 200
+
+
+
+
 
 
 
