@@ -111,19 +111,3 @@ def delete_streetart_post(id):
 			message = "User cannot delete posts that are not theirs",
 			status = 403
 		), 403
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

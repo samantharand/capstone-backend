@@ -36,10 +36,12 @@ class StreetArt(Model):
 			# search and autocomplete
 
 
+# Bookmarks?? -- ones you want to visit
 
 
 # class Tag(Model):
 # 	name = CharField()
+
 
 # class PostTag(Model):
 # 	post = ForeignKeyField(StreetArt)
