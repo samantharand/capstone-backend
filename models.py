@@ -18,7 +18,8 @@ class User(UserMixin, Model):
 
 class StreetArt(Model):
 	name = CharField()
-	location = FloatField() # indexes????? -- lat and long ?
+	latitude = FloatField() # indexes????? -- lat and long ?
+	longitude = FloatField()
 	year = IntegerField()
 	artist = CharField()
 	description = TextField()

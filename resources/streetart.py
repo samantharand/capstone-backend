@@ -1,4 +1,5 @@
 import models
+import requests
 
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
@@ -15,10 +16,29 @@ def test_route():
 @login_required
 def add_streetart():
 	payload = request.get_json()
+	
+	location = '+'.join(payload["location"].split(' '))
+	
+	print( location )
+
+	geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=AIzaSyB7G8yZAkGYtf2QQzkS1n0E1gZtpPF_h8w'
+	print('geocodeUrl', geocodeUrl)
+
+	response = requests.get(geocodeUrl).json()
+	print('response', response['results'][0]['geometry'])
+	latitude = response['results'][0]['geometry']['bounds']['northeast']['lat']
+	longitude = response['results'][0]['geometry']['bounds']['northeast']['lng']
+	print('latitude', latitude)
+	print('longitude', longitude)
+	# responseJson = jsonify(response.text)
+	# print(responseJson)
+
+	
 
 	created_streetart = models.StreetArt.create(
 		name = payload['name'],
-		location = payload['location'],
+		latitude = latitude,
+		longitude = longitude,
 		image = payload['image'],
 		year = payload['year'],
 		artist = payload['artist'],
