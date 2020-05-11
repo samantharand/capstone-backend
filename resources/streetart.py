@@ -19,6 +19,7 @@ def add_streetart():
 	created_streetart = models.StreetArt.create(
 		name = payload['name'],
 		location = payload['location'],
+		image = payload['image'],
 		year = payload['year'],
 		artist = payload['artist'],
 		description = payload['description'],
@@ -73,6 +74,7 @@ def edit_streetart_post(id):
 		streetart_to_edit.name = payload['name']
 		streetart_to_edit.location = payload['location']
 		streetart_to_edit.year = payload['year']
+		streetart_to_edit.image = payload['image']
 		streetart_to_edit.artist = payload['artist']
 		streetart_to_edit.description = payload['description']
 		

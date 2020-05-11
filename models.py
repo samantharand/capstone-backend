@@ -22,6 +22,7 @@ class StreetArt(Model):
 	year = IntegerField()
 	artist = CharField()
 	description = TextField()
+	image = TextField()
 	poster = ForeignKeyField(User, backref='streetart', on_delete='CASCADE')
 	date_posted = DateTimeField(default=datetime.datetime.now)
 
