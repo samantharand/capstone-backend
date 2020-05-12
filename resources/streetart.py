@@ -25,9 +25,12 @@ def add_streetart():
 	print('geocodeUrl', geocodeUrl)
 
 	response = requests.get(geocodeUrl).json()
-	print('response', response['results'][0]['geometry'])
-	latitude = response['results'][0]['geometry']['bounds']['northeast']['lat']
-	longitude = response['results'][0]['geometry']['bounds']['northeast']['lng']
+	print('-' * 30)
+	print("response -->", response)
+	print('-' * 30)
+	print("response['results'][0]['geometry'] -------", response['results'][0]['geometry'])
+	latitude = response['results'][0]['geometry']['location']['lat']
+	longitude = response['results'][0]['geometry']['location']['lng']
 	print('latitude', latitude)
 	print('longitude', longitude)
 	# responseJson = jsonify(response.text)
