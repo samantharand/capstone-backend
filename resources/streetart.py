@@ -40,6 +40,7 @@ def add_streetart():
 
 	created_streetart = models.StreetArt.create(
 		name = payload['name'],
+		location = payload['location'],
 		latitude = latitude,
 		longitude = longitude,
 		image = payload['image'],
@@ -95,7 +96,7 @@ def edit_streetart_post(id):
 
 
 	## 
-	
+
 	location = '+'.join(payload["location"].split(' '))
 	
 	print( location )
@@ -117,6 +118,7 @@ def edit_streetart_post(id):
 
 	if current_user.id == streetart_to_edit.poster.id:
 		streetart_to_edit.name = payload['name']
+		streetart_to_edit.location = payload['location']
 		streetart_to_edit.latitude = latitude
 		streetart_to_edit.longitude = longitude
 		streetart_to_edit.year = payload['year']
