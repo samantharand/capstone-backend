@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, g
 from flask_login import LoginManager
 from resources.users import users
@@ -59,6 +60,10 @@ def after_request(response):
 def test_route():
 	print('yay yay yay');
 	return "check the term, gurl"
+
+if 'ON_HEROKU' in os.environ:
+	print('ON HEROKU!!!')
+	models.init()
 
 if __name__ == '__main__':
 	models.init()
