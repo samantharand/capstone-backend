@@ -42,7 +42,7 @@ CORS(streetart, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(streetart, url_prefix='/streetart')
 
-## connection pool things
+## connection pool 
 @app.before_request
 def before_request():
 	print('before_request called')
