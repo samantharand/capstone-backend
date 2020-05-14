@@ -153,8 +153,9 @@ def delete_streetart_post(id):
 
 		return jsonify(
 			data = {},
-			message = "Post successfully deleted."
-		)
+			message = "Post successfully deleted.",
+			status = 200
+		), 200
 	else:
 		return jsonify(
 			data = {},

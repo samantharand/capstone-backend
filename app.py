@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, g
 from flask_login import LoginManager
 from resources.users import users
 from resources.streetart import streetart
@@ -40,6 +40,20 @@ CORS(streetart, origins=['http://localhost:3000'], supports_credentials=True)
 
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(streetart, url_prefix='/streetart')
+
+## connection pool things
+@app.before_request
+def before_request():
+	print('before_request called')
+	g.db = models.DATABASE
+	g.db.connect()
+
+@app.after_request
+def after_request(response):
+	print('after_request called')
+	g.db.close()
+	return response
+##
 
 @app.route('/', methods=['GET'])
 def test_route():
