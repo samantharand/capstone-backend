@@ -1,9 +1,9 @@
 import os
 from peewee import *
 import datetime
-from playhouse.db_url import connect 
-
 from flask_login import UserMixin
+
+from playhouse.db_url import connect 
 
 if 'ON_HEROKU' in os.environ:
 	DATABASE = connect(os.environ.get('DATABASE_URL'))
