@@ -97,21 +97,13 @@ def edit_streetart_post(id):
 	## 
 
 	location = '+'.join(payload["location"].split(' '))
-	
-	print( location )
 
 	geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=AIzaSyB7G8yZAkGYtf2QQzkS1n0E1gZtpPF_h8w'
-	print('geocodeUrl', geocodeUrl)
 
 	response = requests.get(geocodeUrl).json()
-	print('-' * 30)
-	print("response -->", response)
-	print('-' * 30)
-	print("response['results'][0]['geometry'] -------", response['results'][0]['geometry'])
+	
 	latitude = response['results'][0]['geometry']['location']['lat']
 	longitude = response['results'][0]['geometry']['location']['lng']
-	print('latitude', latitude)
-	print('longitude', longitude)
 
 	## 
 
