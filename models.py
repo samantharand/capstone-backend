@@ -26,7 +26,6 @@ class StreetArt(Model):
 	location = CharField()
 	latitude = FloatField() 
 	longitude = FloatField()
-	# year = IntegerField()
 	artist = CharField()
 	description = TextField()
 	image = TextField()

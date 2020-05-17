@@ -44,7 +44,6 @@ def add_streetart():
 		latitude = latitude,
 		longitude = longitude,
 		image = payload['image'],
-		# year = payload['year'],
 		artist = payload['artist'],
 		description = payload['description'],
 		poster = current_user.id
@@ -121,7 +120,6 @@ def edit_streetart_post(id):
 		streetart_to_edit.location = payload['location']
 		streetart_to_edit.latitude = latitude
 		streetart_to_edit.longitude = longitude
-		# streetart_to_edit.year = payload['year']
 		streetart_to_edit.image = payload['image']
 		streetart_to_edit.artist = payload['artist']
 		streetart_to_edit.description = payload['description']
