@@ -36,8 +36,8 @@ def unauthoried():
 		status = 404
 	), 404
 
-CORS(users, origins=['http://localhost:3000', 'https://streetartmap-sam.herokuapp.com', 'http://localhost:5000'], supports_credentials=True)
-CORS(streetart, origins=['http://localhost:3000', 'https://streetartmap-sam.herokuapp.com', 'http://localhost:5000'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', 'https://streetartmap-sam.herokuapp.com', 'capacitor://*'], supports_credentials=True)
+CORS(streetart, origins=['http://localhost:3000', 'https://streetartmap-sam.herokuapp.com', 'capacitor://*'], supports_credentials=True)
 
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(streetart, url_prefix='/streetart')
