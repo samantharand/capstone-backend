@@ -33,7 +33,7 @@ class StreetArt(Model):
 	date_posted = DateTimeField(default=datetime.datetime.now)
 
 	class Meta:
-		database = DATABASE
+		database = DATABASE 
 # lat and long for location -- check peewee docs
 
 # tags -- a new model w a through table to attach tag to post/artwork  (Many to many -- possibly without additional model)
